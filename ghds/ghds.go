@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"strings"
 	"text/tabwriter"
 	"time"
 
@@ -104,14 +103,12 @@ func (ghds *GitHubDownloadStatsService) FetchReleaseHistory() (*ReleaseHistory, 
 				downloadTotal := 0
 				assets := []ReleaseAsset{}
 				for _, a := range r.Assets {
-					if strings.HasSuffix(a.GetName(), "sha256") != true {
-						asset := ReleaseAsset{
-							Name:      a.GetName(),
-							Downloads: a.GetDownloadCount(),
-						}
-						downloadTotal += asset.Downloads
-						assets = append(assets, asset)
+					asset := ReleaseAsset{
+						Name:      a.GetName(),
+						Downloads: a.GetDownloadCount(),
 					}
+					downloadTotal += asset.Downloads
+					assets = append(assets, asset)
 				}
 
 				release := Release{
