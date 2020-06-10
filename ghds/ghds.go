@@ -29,19 +29,22 @@ type gitHubRelease struct {
 	TotalDownloads int              `json:"total_downloads"`
 }
 
-type GitHubDownloadStatsService struct {
-	owner    string
-	repo     string
-	release  string
-	jsonFlag bool
+type GitHubDownloadStatsOptions struct {
+	Release string
+	JsonOut bool
 }
 
-func NewGitHubDownloadStatsService(owner string, repo string, release string, jsonFlag bool) *GitHubDownloadStatsService {
+type GitHubDownloadStatsService struct {
+	owner   string
+	repo    string
+	options *GitHubDownloadStatsOptions
+}
+
+func NewGitHubDownloadStatsService(owner string, repo string, options *GitHubDownloadStatsOptions) *GitHubDownloadStatsService {
 	return &GitHubDownloadStatsService{
-		owner:    owner,
-		repo:     repo,
-		release:  release,
-		jsonFlag: jsonFlag,
+		owner:   owner,
+		repo:    repo,
+		options: options,
 	}
 }
 
@@ -73,7 +76,7 @@ func Build(ghds *GitHubDownloadStatsService) error {
 		}
 
 		for _, r := range releases {
-			if includeRelease(r, ghds.release) == true {
+			if includeRelease(r, ghds.options.Release) == true {
 				downloadTotal := 0
 				assets := []gitHubAsset{}
 				for _, a := range r.Assets {
@@ -110,7 +113,7 @@ func Build(ghds *GitHubDownloadStatsService) error {
 		releaseCount,
 	}
 
-	if ghds.jsonFlag {
+	if ghds.options.JsonOut {
 		obj, err := json.Marshal(releaseHistory)
 		if err != nil {
 			return err

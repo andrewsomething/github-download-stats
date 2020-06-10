@@ -23,7 +23,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	dss := ghds.NewGitHubDownloadStatsService(*owner, *repo, *release, *jsonFlag)
+	options := &ghds.GitHubDownloadStatsOptions{
+		Release: *release,
+		JsonOut: *jsonFlag,
+	}
+
+	dss := ghds.NewGitHubDownloadStatsService(*owner, *repo, options)
 	if err := ghds.Build(dss); err != nil {
 		fmt.Printf("Error: %s\n", err)
 		os.Exit(1)
