@@ -33,8 +33,11 @@ func main() {
 	}
 
 	dss := ghds.NewGitHubDownloadStatsService(*owner, *repo, options)
-	if err := ghds.Build(dss); err != nil {
+	out, err := ghds.Build(dss)
+	if err != nil {
 		fmt.Printf("Error: %s\n", err)
 		os.Exit(1)
 	}
+
+	fmt.Println(out)
 }
