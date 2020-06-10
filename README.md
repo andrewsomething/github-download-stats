@@ -4,11 +4,11 @@ Download statistics for GitHub release assets are only available via the API. gi
 
 ## Installation
 
+Pre-built binaries for Linux, macOS, and Windows are available in the [releases tab](https://github.com/andrewsomething/github-download-stats/releases).
+
 github-download-stats can be installed from source by running:
 
     go get -u github.com/andrewsomething/github-download-stats
-
-Pre-built binaries for Linux, macOS, and Windows are available in the [releases tab](https://github.com/andrewsomething/github-download-stats/releases).
 
 ## Usage
 
