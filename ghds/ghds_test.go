@@ -237,7 +237,9 @@ func TestNewGitHubDownloadStatsService(t *testing.T) {
 }
 
 const (
-	expectedReleaseHistory = `Release: v1.0.0 Date: 2013-02-27 19:35:32 +0000 UTC
+	expectedReleaseHistory = `Repository: foo/bar
+
+Release: v1.0.0 Date: 2013-02-27 19:35:32 +0000 UTC
  
  Asset:           Downloads:
  - example.zip     42

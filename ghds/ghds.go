@@ -150,7 +150,7 @@ func (ghds *GitHubDownloadStatsService) FormatDownloadStats(history *ReleaseHist
 	} else {
 		buf := new(bytes.Buffer)
 		w := tabwriter.NewWriter(buf, 0, 4, 1, ' ', tabwriter.TabIndent)
-		fmt.Printf("Repository: %s/%s\n\n", ghds.owner, ghds.repo)
+		fmt.Fprintf(w, "Repository: %s/%s\n\n", ghds.owner, ghds.repo)
 		if len(history.Releases) > 0 {
 			for _, rel := range history.Releases {
 				fmt.Fprintf(w, "Release: %v\tDate: %v\n", rel.Name, rel.Date)
