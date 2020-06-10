@@ -9,10 +9,12 @@ import (
 )
 
 var (
-	owner    = flag.String("owner", "", "The GitHub repos's owner (required)")
-	repo     = flag.String("repo", "", "The GitHub repo (required)")
-	release  = flag.String("release", "", "The tag name of the release")
+	owner    = flag.String("owner", "", "The GitHub repository's owner (required)")
+	repo     = flag.String("repo", "", "The GitHub repository (required)")
+	release  = flag.String("release", "", "The tag name of the release; excluding will list all releases")
 	jsonFlag = flag.Bool("json", false, "Output in JSON")
+	endpoint = flag.String("api-endpoint", "", "API endpoint for use with GitHub Enterprise")
+	token    = flag.String("token", os.Getenv("GITHUB_TOKEN"), "GitHub API token")
 )
 
 func main() {
@@ -24,8 +26,10 @@ func main() {
 	}
 
 	options := &ghds.GitHubDownloadStatsOptions{
-		Release: *release,
-		JsonOut: *jsonFlag,
+		Release:     *release,
+		JsonOut:     *jsonFlag,
+		ApiEndpoint: *endpoint,
+		Token:       *token,
 	}
 
 	dss := ghds.NewGitHubDownloadStatsService(*owner, *repo, options)
