@@ -1,5 +1,5 @@
 VERSION ?= $(shell git describe --tags)
-COMMIT  ?= $(shell git rev-parse --short HEAD)
+COMMIT  ?= $(shell git rev-parse HEAD)
 LDFLAGS ?= -X main.version=${VERSION} -X main.commit=${COMMIT}
 
 .PHONY: build
