@@ -1,0 +1,27 @@
+builds:
+- env:
+  - CGO_ENABLED=0
+  - GO111MODULE=on
+  flags:
+  - -mod=vendor
+  - -v
+  ldflags:
+  - -X main.commit={{ .FullCommit }}
+  - -X main.version={{ .Version }}
+  goos:
+  - windows
+  - darwin
+  - linux
+  ignore:
+  - goos: darwin
+    goarch: 386
+
+archives:
+- replacements:
+    386: i386
+    amd64: x86_64
+checksum:
+  name_template: "github-download-stats-{{ .Version }}-checksums.sha256"
+
+changelog:
+  sort: asc
