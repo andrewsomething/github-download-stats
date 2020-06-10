@@ -9,16 +9,29 @@ import (
 )
 
 var (
-	owner    = flag.String("owner", "", "The GitHub repository's owner (required)")
-	repo     = flag.String("repo", "", "The GitHub repository (required)")
-	release  = flag.String("release", "", "The tag name of the release; excluding will list all releases")
-	jsonFlag = flag.Bool("json", false, "Output in JSON")
-	endpoint = flag.String("api-endpoint", "", "API endpoint for use with GitHub Enterprise")
-	token    = flag.String("token", os.Getenv("GITHUB_TOKEN"), "GitHub API token")
+	version string
+	commit  string
+
+	owner       = flag.String("owner", "", "The GitHub repository's owner (required)")
+	repo        = flag.String("repo", "", "The GitHub repository (required)")
+	release     = flag.String("release", "", "The tag name of the release; excluding will list all releases")
+	jsonFlag    = flag.Bool("json", false, "Output in JSON")
+	endpoint    = flag.String("api-endpoint", "", "API endpoint for use with GitHub Enterprise")
+	token       = flag.String("token", os.Getenv("GITHUB_TOKEN"), "GitHub API token")
+	versionFlag = flag.Bool("version", false, "Print version")
 )
 
 func main() {
 	flag.Parse()
+
+	if *versionFlag {
+		if version == "" {
+			version = "dev"
+		}
+		fmt.Printf("Version: %s\nCommit: %s\n", version, commit)
+		os.Exit(0)
+	}
+
 	if *owner == "" || *repo == "" {
 		fmt.Println("Must set the repo and owner...")
 		flag.Usage()
