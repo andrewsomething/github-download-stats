@@ -188,44 +188,44 @@ func TestIncludeGitHubRelease(t *testing.T) {
 
 	var includeReleaseTests = []struct {
 		input    *github.RepositoryRelease
-		arg      string
+		options  *GitHubDownloadStatsOptions
 		expected bool
 	}{
 		// No assests in release
-		{&github.RepositoryRelease{}, "", false},
+		{&github.RepositoryRelease{}, &GitHubDownloadStatsOptions{}, false},
 		// Is a pre-release, doesn't match
 		{&github.RepositoryRelease{
 			Name:       &emptyName,
 			Prerelease: &isTrue,
 			Assets:     []github.ReleaseAsset{{ID: &id}},
-		}, "", false},
+		}, &GitHubDownloadStatsOptions{}, false},
 		// Is a pre-release, matches specific release
 		{&github.RepositoryRelease{
 			Name:       &emptyName,
 			Prerelease: &isTrue,
 			Assets:     []github.ReleaseAsset{{ID: &id}},
-		}, "v1", false},
+		}, &GitHubDownloadStatsOptions{Release: "v1"}, false},
 		// Release with empty name
 		{&github.RepositoryRelease{
 			Name:   &emptyName,
 			Assets: []github.ReleaseAsset{{ID: &id}},
-		}, "", true},
+		}, &GitHubDownloadStatsOptions{}, true},
 		// Specific release matches
 		{&github.RepositoryRelease{
 			Name:   &name,
 			Assets: []github.ReleaseAsset{{ID: &id}},
-		}, "v1", true},
+		}, &GitHubDownloadStatsOptions{Release: "v1"}, true},
 		// Specific release does not match
 		{&github.RepositoryRelease{
 			Name:   &name,
 			Assets: []github.ReleaseAsset{{ID: &id}},
-		}, "v2", false},
+		}, &GitHubDownloadStatsOptions{Release: "v2"}, false},
 	}
 
 	for _, tt := range includeReleaseTests {
-		actual := includeGitHubRelease(tt.input, tt.arg)
+		actual := includeGitHubRelease(tt.input, tt.options)
 		if actual != tt.expected {
-			t.Errorf("includeGitHubRelease(%v): expected %v, actual %v", tt.input, tt.expected, actual)
+			t.Errorf("includeGitHubRelease(%v, %v):\nexpected %v, actual %v", tt.input, tt.options, tt.expected, actual)
 		}
 	}
 }

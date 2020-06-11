@@ -74,9 +74,9 @@ func NewGitHubDownloadStatsService(owner string, repo string, options *GitHubDow
 	}
 }
 
-func includeGitHubRelease(r *github.RepositoryRelease, specificRelease string) bool {
+func includeGitHubRelease(r *github.RepositoryRelease, options *GitHubDownloadStatsOptions) bool {
 	rName := r.GetName()
-	if (specificRelease == "") || (specificRelease == rName && rName != "") {
+	if (options.Release == "") || (options.Release == rName && rName != "") {
 		if r.GetPrerelease() != true && len(r.Assets) > 0 {
 			return true
 		}
@@ -99,7 +99,7 @@ func (ghds *GitHubDownloadStatsService) FetchReleaseHistory() (*ReleaseHistory, 
 		}
 
 		for _, r := range releases {
-			if includeGitHubRelease(r, ghds.options.Release) == true {
+			if includeGitHubRelease(r, ghds.options) == true {
 				downloadTotal := 0
 				assets := []ReleaseAsset{}
 				for _, a := range r.Assets {
