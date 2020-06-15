@@ -1,0 +1,5 @@
+FROM alpine
+
+WORKDIR /app
+COPY github-download-stats /app/
+ENTRYPOINT ["./github-download-stats"]

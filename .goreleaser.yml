@@ -24,7 +24,9 @@ checksum:
   name_template: "github-download-stats-{{ .Version }}-checksums.sha256"
 
 dockers:
-  dockerfile: Dockerfile
+- dockerfile: Dockerfile.goreleaser
+  binaries:
+  - github-download-stats
   build_flag_templates:
   - "--build-arg=VERSION={{ .Version }}"
   - "--build-arg=COMMIT={{ .FullCommit }}"
