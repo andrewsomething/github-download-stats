@@ -23,5 +23,14 @@ archives:
 checksum:
   name_template: "github-download-stats-{{ .Version }}-checksums.sha256"
 
+dockers:
+  dockerfile: Dockerfile
+  build_flag_templates:
+  - "--build-arg=VERSION={{ .Version }}"
+  - "--build-arg=COMMIT={{ .FullCommit }}"
+  image_templates:
+  - "andrewsomething/github-download-stats:latest"
+  - "andrewsomething/github-download-stats:{{ .Version }}"
+
 changelog:
   sort: asc

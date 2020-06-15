@@ -17,3 +17,8 @@ vendor:
 	@echo "==> Updating vendored packages"
 	@GO111MODULE=on go mod tidy
 	@GO111MODULE=on go mod vendor
+
+.PHONY: docker
+docker:
+	@echo "==> Building Docker image"
+	docker build --build-arg=VERSION=${VERSION} --build-arg=COMMIT=${COMMIT} -t andrewsomething/github-download-stats .

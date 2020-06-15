@@ -6,6 +6,10 @@ Download statistics for GitHub release assets are only available via the API. `g
 
 Pre-built binaries for Linux, macOS, and Windows are available in the [releases tab](https://github.com/andrewsomething/github-download-stats/releases).
 
+Docker images are also available:
+
+    docker run andrewsomething/github-download-stats
+
 `github-download-stats` can be installed from source by running:
 
     go get -u github.com/andrewsomething/github-download-stats
