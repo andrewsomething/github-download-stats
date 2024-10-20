@@ -12,7 +12,17 @@ Docker images are also available:
 
 `github-download-stats` can be installed from source by running:
 
-    go get -u github.com/andrewsomething/github-download-stats
+#### Go Version 1.16 and Earlier
+
+```
+go get -u github.com/andrewsomething/github-download-stats
+```
+
+#### Go Version 1.17 and Later
+
+```
+go install github.com/andrewsomething/github-download-stats@latest
+```
 
 ## Usage
 
@@ -32,6 +42,21 @@ Usage of ./github-download-stats:
     	GitHub API token (default "")
   -version
     	Print version
+```
+### Usage for Get Stats for All Releases
+
+```
+github-download-stats -owner <owner> -repo <repo> -token <your_token>
+```
+### Usage for Get Stats for Specific Releases
+
+```
+github-download-stats -owner <owner> -repo <repo> -release <release_tag> -token <your_token>
+```
+### Usage for Get Stats in JSON
+
+```
+github-download-stats -owner <owner> -repo <repo> -json -token <your_token>
 ```
 
 ## License
