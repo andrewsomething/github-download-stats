@@ -199,6 +199,12 @@ func TestIncludeGitHubRelease(t *testing.T) {
 			Prerelease: &isTrue,
 			Assets:     []github.ReleaseAsset{{ID: &id}},
 		}, &GitHubDownloadStatsOptions{}, false},
+		// Is a pre-release with pre-release flag
+		{&github.RepositoryRelease{
+			Name:       &emptyName,
+			Prerelease: &isTrue,
+			Assets:     []github.ReleaseAsset{{ID: &id}},
+		}, &GitHubDownloadStatsOptions{PreRelease: true}, true},
 		// Is a pre-release, matches specific release
 		{&github.RepositoryRelease{
 			Name:       &emptyName,

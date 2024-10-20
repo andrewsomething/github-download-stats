@@ -19,6 +19,7 @@ var (
 	endpoint    = flag.String("api-endpoint", "", "API endpoint for use with GitHub Enterprise")
 	token       = flag.String("token", os.Getenv("GITHUB_TOKEN"), "GitHub API token")
 	versionFlag = flag.Bool("version", false, "Print version")
+	preRelease  = flag.Bool("pre-release", false, "Include pre-releases")
 )
 
 func main() {
@@ -43,6 +44,7 @@ func main() {
 		JsonOut:     *jsonFlag,
 		ApiEndpoint: *endpoint,
 		Token:       *token,
+		PreRelease:  *preRelease,
 	}
 
 	dss := ghds.NewGitHubDownloadStatsService(*owner, *repo, options)

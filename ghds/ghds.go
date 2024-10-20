@@ -41,6 +41,7 @@ type GitHubDownloadStatsOptions struct {
 	JsonOut     bool
 	ApiEndpoint string
 	Token       string
+	PreRelease  bool
 }
 
 type GitHubDownloadStatsService struct {
@@ -76,8 +77,13 @@ func NewGitHubDownloadStatsService(owner string, repo string, options *GitHubDow
 
 func includeGitHubRelease(r *github.RepositoryRelease, options *GitHubDownloadStatsOptions) bool {
 	rName := r.GetName()
-	if (options.Release == "") || (options.Release == rName && rName != "") {
-		if r.GetPrerelease() != true && len(r.Assets) > 0 {
+	tName := r.GetTagName()
+	if (options.Release == "") || (options.Release == rName && rName != "") ||
+		(options.Release == tName && tName != "") {
+		if options.PreRelease == false && r.GetPrerelease() == true {
+			return false
+		}
+		if len(r.Assets) > 0 {
 			return true
 		}
 	}
