@@ -1,6 +1,7 @@
 module github.com/andrewsomething/github-download-stats
 
 go 1.22
+toolchain go1.24.1
 
 require (
 	github.com/google/go-github v17.0.0+incompatible
@@ -10,6 +11,6 @@ require (
 require (
 	github.com/golang/protobuf v1.2.0 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
-	golang.org/x/net v0.23.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	google.golang.org/appengine v1.4.0 // indirect
 )
